@@ -1,0 +1,24 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model EmployeeDetails.Models.Employee;
+
+@if(Model is null)
+{
+    <p> no details found </p>
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+            Employee Details
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Employee Information</h5>
+            <p class="card-text"><strong>ID:</strong> @Model.EmployeeID</p>
+            <p class="card-text"><strong>Name:</strong> @Model.EmployeeName</p>
+            <p class="card-text"><strong>Salary:</strong> @Model.Salary</p>
+            <a asp-controller="Employee" asp-action="List" class="btn btn-primary">Back</a>
+        </div>
+    </div>
+}

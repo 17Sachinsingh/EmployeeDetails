@@ -1,0 +1,32 @@
+﻿
+@model List<EmployeeDetails.Models.Employee>
+
+
+
+<table class="table table-borderless">
+    <div class="d-flex justify-content-between align-items-center">
+    <h1 class="mb-2">Employees</h1>
+    <a class="btn btn-link" asp-area="" asp-controller="Employee" asp-action="Add">Add Employee</a>
+    </div>
+    <form method="get">
+        <input class="form-control" asp-for="searchTerm" />
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    <thead>
+        <th>Employee ID</th>
+        <th>Employee Name</th>
+        <th>Salary</th>
+    </thead>
+    <tbody>
+        @foreach(var employee in Model){
+        <tr>
+            <td>@employee.EmployeeID</td>
+            <td>@employee.EmployeeName</td>
+            <td>@employee.Salary</td>
+            <td> 
+                <a class="btn btn-primary" asp-controller="Employee" asp-action="Details" asp-route-id="@employee.EmployeeID">Details</a>
+            </td>
+          </tr>
+        }
+    </tbody>
+</table>
