@@ -10,6 +10,6 @@ namespace EmployeeDetails.Models
         public string EmployeeName { get; set; }
         [Range(100000,500000)]
         public int Salary { get; set; }
-        public string searchTerm { get; set; }
+       
     }
 }

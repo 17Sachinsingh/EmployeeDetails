@@ -8,9 +8,9 @@
     <h1 class="mb-2">Employees</h1>
     <a class="btn btn-link" asp-area="" asp-controller="Employee" asp-action="Add">Add Employee</a>
     </div>
-    <form method="get">
-        <input class="form-control" asp-for="searchTerm" />
-        <button type="submit" class="btn btn-primary">Search</button>
+    <form method="get" asp-controller="Employee" asp-action="List">
+        <input class="form-control" type="text" placeholder="Search" name="searchString"/>
+        <button type="submit" value="Search" class="btn btn-primary mt-2" >Search</button>
     </form>
     <thead>
         <th>Employee ID</th>

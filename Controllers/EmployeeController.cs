@@ -33,9 +33,24 @@ namespace EmployeeDetails.Controllers
            
         }
         [HttpGet]
-        public async Task<IActionResult> List()
+        public async Task<IActionResult> List(string searchString)
         {
             var employees = await _databaseContext.employees.ToListAsync();
+            if (searchString is not null)
+            {
+                var filteredEmployee=new List<Employee>();
+                foreach(var employee in employees)
+                {
+                    if (employee.EmployeeName.Contains(searchString))
+                    {
+                        filteredEmployee.Add(employee);
+                    }
+                }
+                //return View(filteredEmployee);
+                employees= filteredEmployee;
+            }
+
+            
             return View(employees);
         }
         [HttpGet]
