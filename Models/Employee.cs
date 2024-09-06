@@ -7,6 +7,7 @@ namespace EmployeeDetails.Models
         [Key]
         public Guid EmployeeID { get; set; }
         [Required(ErrorMessage = "Employee Name is required")]
+        
         public string EmployeeName { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Salary is required")]

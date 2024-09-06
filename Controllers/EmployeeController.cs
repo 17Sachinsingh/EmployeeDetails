@@ -33,9 +33,11 @@ namespace EmployeeDetails.Controllers
             };
                 await _databaseContext.employees.AddAsync(employee);
                 await _databaseContext.SaveChangesAsync();
+                return RedirectToAction("List");
             }
+            return View();
             
-            return RedirectToAction("List");
+           
            
         }
         [HttpGet]
@@ -65,12 +67,13 @@ namespace EmployeeDetails.Controllers
             var employee =await _databaseContext.employees.FindAsync(id);
             return View(employee);
         }
-        [HttpDelete]
+        
+        [HttpPost]
         public async Task<IActionResult> Delete (Guid id)
         {
             var deleteEmployee = await _databaseContext.employees.FindAsync(id);
             if (deleteEmployee is null) {
-                return Content("<h3>No Employee with this id","text/html");
+                return NotFound("No Employee with this ID");
             } 
             _databaseContext.employees.Remove(deleteEmployee);
             await _databaseContext.SaveChangesAsync();
