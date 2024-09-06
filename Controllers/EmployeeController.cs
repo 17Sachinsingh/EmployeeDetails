@@ -2,6 +2,7 @@
 using EmployeeDetails.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Identity.Client;
 
 namespace EmployeeDetails.Controllers
@@ -13,23 +14,28 @@ namespace EmployeeDetails.Controllers
         {
                 _databaseContext= databaseContext;
         }
-       
         [HttpGet]
         public IActionResult Add()
         {
             return View();
         }
+      
         [HttpPost]
-        public async Task<IActionResult> Add( AddEmployee employeeModel)
+        public async Task<IActionResult> Add( Employee employeeModel)
         {
-            var employee = new Employee
+            
+            if (ModelState.IsValid)
+            {
+             var employee = new Employee
             {
                 EmployeeName = employeeModel.EmployeeName,
                 Salary = employeeModel.Salary
             };
-            await _databaseContext.employees.AddAsync(employee);
-            await _databaseContext.SaveChangesAsync();
-            return View();
+                await _databaseContext.employees.AddAsync(employee);
+                await _databaseContext.SaveChangesAsync();
+            }
+            
+            return RedirectToAction("List");
            
         }
         [HttpGet]
@@ -46,7 +52,7 @@ namespace EmployeeDetails.Controllers
                         filteredEmployee.Add(employee);
                     }
                 }
-                //return View(filteredEmployee);
+                
                 employees= filteredEmployee;
             }
 
@@ -54,10 +60,21 @@ namespace EmployeeDetails.Controllers
             return View(employees);
         }
         [HttpGet]
-        public async Task<IActionResult> Details(int id )
+        public async Task<IActionResult> Details(Guid id )
         {
             var employee =await _databaseContext.employees.FindAsync(id);
             return View(employee);
+        }
+        [HttpDelete]
+        public async Task<IActionResult> Delete (Guid id)
+        {
+            var deleteEmployee = await _databaseContext.employees.FindAsync(id);
+            if (deleteEmployee is null) {
+                return Content("<h3>No Employee with this id","text/html");
+            } 
+            _databaseContext.employees.Remove(deleteEmployee);
+            await _databaseContext.SaveChangesAsync();
+            return RedirectToAction("List");
         }
         
     }

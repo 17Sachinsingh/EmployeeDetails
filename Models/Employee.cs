@@ -5,11 +5,12 @@ namespace EmployeeDetails.Models
     public class Employee
     {
         [Key]
-        public int EmployeeID { get; set; }
-        [StringLength(30)]
-        public string EmployeeName { get; set; }
-        [Range(100000,500000)]
-        public int Salary { get; set; }
+        public Guid EmployeeID { get; set; }
+        [Required(ErrorMessage = "Employee Name is required")]
+        public string EmployeeName { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Salary is required")]
+        public int? Salary { get; set; } = null;
        
     }
 }

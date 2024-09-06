@@ -1,3 +1,4 @@
+using EmployeeDetails;
 using EmployeeDetails.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,8 +14,9 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+   app.UseExceptionHandler();
 }
+
 app.UseStaticFiles();
 
 app.UseRouting();
